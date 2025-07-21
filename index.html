@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ancient Villa - Your Gateway to Sacred Anuradhapura</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #5C4033; 
+            background: url('images/fixedBackground.jpeg') no-repeat center/cover fixed;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid #D4A017;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(84, 56, 46, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #D4A017;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-family: 'Cinzel', serif;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-family: 'Cinzel', serif;
+            color: #D4A017;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #D4A017;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+            font-family: 'Cinzel', serif;
+        }
+
+        .nav-links a:hover {
+            color: #8B5A2B; 
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #8B5A2B;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(92, 64, 51, 0.6), rgba(92, 64, 51, 0.6)),
+                        url('images/heroBackgroundMain.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #F5E8C7; 
+            position: relative;
+            border-bottom: 4px solid #D4A017; 
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease;
+            background: rgba(139, 69, 19, 0.7); 
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(212, 160, 23, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            animation: slideInDown 1s ease 0.5s both;
+            font-family: 'Cinzel', serif;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease 1s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #D4A017, #8B5A2B);
+            color: #F5E8C7;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            box-shadow: 0 4px 15px rgba(212, 160, 23, 0.4);
+            border: 2px solid #8B5A2B;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 160, 23, 0.5);
+            animation: none;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #D4A017;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        .slider {
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #D4A017;
+            border-radius: 15px;
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 400px;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: filter 0.3s ease;
+        }
+
+        .slide:hover img {
+            filter: grayscale(0%);
+        }
+
+        .slider-buttons {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        .slider-button {
+            background: rgba(212, 160, 23, 0.7);
+            color: #F5E8C7; 
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .slider-button:hover {
+            background: rgba(139, 69, 19, 0.9); 
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(245, 232, 199, 0.9); 
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(139, 69, 19, 0.2);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #5C4035; 
+            position: relative;
+            animation: fadeInUp 0.8s ease;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #D4A017, #8B5A2B);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #7F5A3B;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #E8D8C0, #BFA68A); 
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(139, 69, 19, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid #D4A017; 
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 160, 23, 0.2) 0%, rgba(139, 69, 19, 0) 70%);
+            animation: rotate 10s linear infinite;
+            z-index: 0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(139, 69, 19, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #5C4033; 
+            position: relative;
+            z-index: 1;
+        }
+
+        .villa-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #D4A017; 
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+            filter: grayscale(20%);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(139, 69, 19, 0.8)); 
+            color: #F5E8C7; 
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+            font-family: 'Cinzel', serif;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .attraction-card {
+            background: linear-gradient(135deg, #E8D8C0, #BFA68A); 
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.1); 
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid #D4A017;
+        }
+
+        .attraction-card:hover {
+            transform: translateY(-10px) rotate(-1deg);
+            box-shadow: 0 20px 40px rgba(139, 69, 19, 0.15);
+        }
+
+        .attraction-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .attraction-card:hover .attraction-image {
+            filter: brightness(1.1);
+        }
+
+        .attraction-content {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .attraction-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #5C4033; 
+            margin-bottom: 0.5rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        .attraction-description {
+            color: #7F5A3B; 
+            line-height: 1.6;
+        }
+
+        .history {
+            background: linear-gradient(135deg, #BFA68A, #5C4033); 
+            padding: 6rem 2rem;
+            margin: 4rem 0;
+            color: #F5E8C7; 
+            border: 2px solid #8B5A2B; 
+        }
+
+        .history-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .history-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #F5E8C7; 
+            margin: 2rem 0;
+        }
+
+        .contact {
+            background: linear-gradient(135deg, #5C4033, #8B5A2B); 
+            color: #F5E8C7; 
+            padding: 6rem 2rem;
+            text-align: center;
+            border-top: 4px solid #D4A017; 
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            background: rgba(212, 160, 23, 0.1); 
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border: 2px solid #F5E8C7; 
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            background: rgba(212, 160, 23, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #F5E8C7; 
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .nav-links { display: none; }
+            .features-grid, .attractions-grid { grid-template-columns: 1fr; }
+            .slider { height: 200px; }
+            .slide img { object-fit: cover; }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo"><img src="images/logo.png" alt="Ancient Villa Logo" style="height: 40px; vertical-align: middle;"><span class="logo-text">Ancient Villa</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#villa">Villa</a></li>
+                <li><a href="#attractions">Attractions</a></li>
+                <li><a href="#history">History</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="floating">Ancient Villa</h1>
+            <p>Your Gateway to the Sacred City of Anuradhapura</p>
+            <p>Experience luxury accommodation in the heart of Sri Lanka's ancient capital</p>
+            <a href="#villa" class="cta-button">Discover Our Villa</a>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <div class="slider">
+        <div class="slider-container">
+        <div class="slide"><img src="images/gate1.jpg" alt="Gate"></div>
+        <div class="slide"><img src="images/external1.jpg" alt="External"></div>
+        <div class="slide"><img src="images/external2.jpg" alt="External"></div>
+        <div class="slide"><img src="images/corridor1.jpg" alt="Corridor"></div>
+        <div class="slide"><img src="images/corridor2.jpg" alt="Corridor"></div>
+        <div class="slide"><img src="images/corridor3.jpg" alt="Corridor"></div>
+        <div class="slide"><img src="images/corridor4.jpg" alt="Corridor"></div>
+        <div class="slide"><img src="images/corridor5.jpg" alt="Corridor"></div>
+        <div class="slide"><img src="images/room1.jpg" alt="Room"></div>
+        <div class="slide"><img src="images/room2.jpg" alt="Room"></div>
+        <div class="slide"><img src="images/room3.jpg" alt="Room"></div>
+        <div class="slide"><img src="images/diningArea1.jpg" alt="DiningArea"></div>
+        <div class="slide"><img src="images/diningArea2.jpg" alt="DiningArea"></div>
+        </div>
+        <div class="slider-buttons">
+            <button class="slider-button" onclick="plusSlides(-1)">❮</button>
+            <button class="slider-button" onclick="plusSlides(1)">❯</button>
+        </div>
+    </div>
+
+    <section id="villa" class="section">
+        <h2 class="section-title fade-in">Welcome to Ancient Villa</h2>
+        <p class="section-subtitle fade-in">Located at Perimiyankulama, Anuradhapura <br>Your perfect base to explore the ancient wonders</p>
+        
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">❄️</div>
+                <h3>AC & Non-AC Rooms</h3>
+                <p>Choose from our comfortable air-conditioned rooms or traditional non-AC accommodations, all designed with modern amenities and local charm.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🚿</div>
+                <h3>Hot Water</h3>
+                <p>Enjoy refreshing hot water facilities in all our bathrooms, perfect for relaxing after a day of exploring ancient temples.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🍽️</div>
+                <h3>Dining Area</h3>
+                <p>Savor authentic Sri Lankan cuisine and international dishes in our spacious dining area with traditional décor.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🚗</div>
+                <h3>Parking Space</h3>
+                <p>Secure parking facilities available for all guests, ensuring your vehicle's safety during your stay.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🏛️</div>
+                <h3>Traditional Corridor</h3>
+                <p>Walk through our beautifully designed corridors that reflect the architectural heritage of ancient Anuradhapura.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">📶</div>
+                <h3>Free WiFi</h3>
+                <p>Stay connected with complimentary high-speed WiFi throughout the property to share your amazing experiences.</p>
+            </div>
+        </div>
+
+        <div class="villa-gallery">
+            <div class="gallery-item fade-in">
+                <img src="images/villaFront.jpg" alt="Villa Exterior">
+                <div class="gallery-overlay">
+                    <h3>Villa Exterior</h3>
+                    <p>Traditional Sri Lankan architecture meets modern comfort</p>
+                </div>
+            </div>
+        <div class="gallery-item fade-in">
+                <img src="images/nonAcBedroom.jpg" alt="Villa Exterior">
+                <div class="gallery-overlay">
+                    <h3>Non-AC Rooms</h3>
+                    <p>Economical rooms with natural ventilation and comfortable furnishings</p>
+                </div>
+            </div>
+        <div class="gallery-item fade-in">
+                <img src="images/corridor.jpg" alt="Villa Exterior">
+                <div class="gallery-overlay">
+                    <h3>Traditional Corridor</h3>
+                    <p>Beautifully designed spaces reflecting ancient architecture</p>
+                </div>
+            </div>
+        <div class="gallery-item fade-in">
+                <img src="images/bathroom.jpg" alt="Villa Exterior">
+                <div class="gallery-overlay">
+                    <h3>Modern Bathroom</h3>
+                    <p>Clean, modern facilities with hot water</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="images/acBedroom.jpg" alt="Comfortable Bedrooms">
+                <div class="gallery-overlay">
+                    <h3>AC Bedrooms</h3>
+                    <p>Fully air-conditioned rooms with elegant interiors and relaxing ambiance</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="images/diningArea.jpg" alt="Dining Area">
+                <div class="gallery-overlay">
+                    <h3>Dining Area</h3>
+                    <p>Enjoy authentic Sri Lankan and international cuisine</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="history" class="history">
+        <div class="history-content fade-in">
+            <h2 class="section-title">The Sacred City of Anuradhapura</h2>
+            <div class="history-text"> <p>Step into the heart of Sri Lanka’s ancient soul — <b>Anuradhapura</b>, a majestic city where time stands still and history breathes through every stone. Once the proud capital of a mighty kingdom, this sacred city flourished for over 1,300 years, echoing with the chants of monks and the wisdom of kings.</p> <p>Founded in the 4th century BC, Anuradhapura rose to become the spiritual epicenter of <b>Theravada Buddhism</b>, drawing pilgrims and royalty from far corners of Asia. Wander through the awe-inspiring <b>Ruwanwelisaya Stupa</b>, marvel at the engineering marvel of the <b>Abhayagiri Monastery</b>, and stand in reverence before the world’s oldest historically documented tree — the sacred <b>Sri Maha Bodhi</b>, grown from a sapling of the tree under which Lord Buddha attained enlightenment.</p> <p>Today, as a <b>UNESCO World Heritage Site</b>, Anuradhapura is more than ruins — it’s a living legacy. Towering stupas, serene ponds, ancient palaces, and timeworn carvings whisper stories of devotion, power, and peace. Whether you seek spiritual awakening, historical wonder, or sheer awe — <b>Anuradhapura calls</b>. Come walk its timeless paths and experience the divine grandeur of a civilization that still inspires the world.</p> </div>
+        </div>
+    </section>
+
+    <section id="attractions" class="section">
+        <h2 class="section-title fade-in">Discover Sacred Anuradhapura</h2>
+        <p class="section-subtitle fade-in">Explore 25+ magnificent historical and spiritual sites just minutes from Ancient Villa</p>
+        
+        <div class="attractions-grid">
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/SriMahaBodiya.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Jaya Sri Maha Bodhi Tree</h3>
+                    <p class="attraction-description">The most sacred Buddhist site in Sri Lanka, this 2,300-year-old Bodhi tree is believed to be grown from a cutting of the original tree under which Buddha attained enlightenment.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/RuwanweliMahaSeya.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Ruwanwelisaya Stupa</h3>
+                    <p class="attraction-description">A magnificent white stupa built by King Dutugemunu in 140 BC, considered one of the most sacred Buddhist monuments.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/Jetavanaramaya.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Jetawanaramaya</h3>
+                    <p class="attraction-description">Once the tallest stupa in the world at 120 meters, this 3rd-century monument showcases the architectural mastery of ancient Sri Lankan builders and remains an engineering marvel.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/Isurumuniya.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Isurumuniya Temple</h3>
+                    <p class="attraction-description">Famous for its ancient rock carvings including the "Isurumuniya Lovers," this temple combines natural rock formations with intricate Buddhist art dating back to the 3rd century BC.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/Stargate.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">The Star Gate of Ancient Anuradhapura</h3>
+                    <p class="attraction-description">A mystical ancient structure believed to align with celestial events, this gate reflects the astronomical knowledge of ancient Sri Lankan architects from centuries past.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Vessagiriya Buddhist Forest Monastery</h3>
+                    <p class="attraction-description">A serene forest monastery with ancient rock caves and meditation sites, offering a glimpse into the monastic life of Buddhist monks from the 2nd century BC.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/SamadhiStatue.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Samadhi Buddha Statue</h3>
+                    <p class="attraction-description">This serene 4th-century limestone statue depicts Buddha in deep meditation. Its peaceful expression has inspired countless devotees and is considered one of the finest Buddha statues in Sri Lanka.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/Abhayagiri.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Abhayagiri Stupa</h3>
+                    <p class="attraction-description">Center of a vast monastic complex that once housed 5,000 monks. This 2nd century BC monument represents the height of ancient Sri Lankan Buddhist architecture and scholarship.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/Sandakadapahana.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Sandakada Pahana (Moonstone)</h3>
+                    <p class="attraction-description">Intricately carved semi-circular stone slabs that guard temple entrances, representing the Buddhist concept of Samsara. These artistic masterpieces showcase ancient Sri Lankan craftsmanship.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/EthPokuna.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Eth Pokuna (Elephant Pond)</h3>
+                    <p class="attraction-description">A massive ancient reservoir built to supply water to the Abhayagiri Monastery, this pond exemplifies the sophisticated hydraulic engineering of ancient Anuradhapura.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/Lankarama.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Lankarama Stupa</h3>
+                    <p class="attraction-description">A beautifully preserved stupa from the 1st century BC, surrounded by stone pillars, offering a tranquil setting for reflection and historical exploration.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/AbhayagiriMuseum.jpeg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Abhayagiriya Museum</h3>
+                    <p class="attraction-description">A repository of artifacts from the Abhayagiri Monastery, this museum showcases ancient sculptures, inscriptions, and relics dating back to the 1st century BC.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/Thuparamaya.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Thuparamaya Dagoba</h3>
+                    <p class="attraction-description">The oldest stupa in Sri Lanka, built in the 3rd century BC, it houses the collarbone relic of the Buddha and is a cornerstone of Buddhist heritage.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/KottamPokuna.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Kuttam Pokuna (Twin Ponds)</h3>
+                    <p class="attraction-description">Masterpiece of ancient hydraulic engineering, these beautifully designed bathing pools for monks showcase the sophisticated water management systems of ancient Anuradhapura.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/Aukana.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Aukana Buddha Statue</h3>
+                    <p class="attraction-description">A towering 5th-century standing Buddha statue carved from a single rock, this masterpiece stands as a testament to the sculptural skill of ancient Sri Lankan artisans.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/TissaWewa.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Tissa Wewa Reservoir</h3>
+                    <p class="attraction-description">Ancient man-made lake built by King Devanampiyatissa in 3rd century BC. This engineering marvel still supplies water today and offers breathtaking sunset views over the sacred city.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/JetavanaramayaImageHouse.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Jethawanarama Image House (Palimage)</h3>
+                    <p class="attraction-description">An ancient image house near the Jetawanaramaya stupa, housing significant Buddha statues and reflecting the artistic traditions of the 3rd century BC.</p>
+                </div>
+            </div>
+            <div class="attraction-card fade-in">
+                <div class="attraction-image" style="background-image: url('images/Haththikuchchi.jpg')"></div>
+                <div class="attraction-content">
+                    <h3 class="attraction-title">Haththikuchchi Temple</h3>
+                    <p class="attraction-description">A lesser-known temple with ancient ruins and a peaceful ambiance, reflecting the spiritual life of monks from the 3rd century BC.</p>
+                </div>
+            </div>
+           </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <p style="font-size: 1.2rem; color: #7F5A3B;">And more incredible sites waiting to be explored!</p>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2 class="section-title" style="color: #F5E8C7;">Book Your Stay</h2>
+        <p style="font-size: 1.3rem; margin-bottom: 2rem;">Experience the magic of ancient Anuradhapura from the comfort of Ancient Villa</p>
+        
+        <div class="contact-info">
+            <div class="contact-item fade-in">
+                <div class="contact-icon">📱</div>
+                <h3>Mobile</h3>
+                <p>Call us directly for immediate booking</p>
+                <p><strong>+94 714454087</strong></p>
+            </div>
+            <div class="contact-item fade-in">
+                <div class="contact-icon">💬</div>
+                <h3>WhatsApp</h3>
+                <p>Quick responses via WhatsApp</p>
+                <p><strong>+94 710351657</strong></p>
+            </div>
+            <div class="contact-item fade-in">
+                <div class="contact-icon">✉️</div>
+                <h3>Email</h3>
+                <p>Send us your inquiry</p>
+                <p><strong>biharanethmibandara@gmail.com</strong></p>
+            </div>
+            <div class="contact-item fade-in">
+                <div class="contact-icon">📍</div>
+                <h3>Location</h3>
+                <p>No. 529, Kanda Road</p>
+                <p>Perimiyankulama, Anuradhapura</p>
+                <p><strong>Sri Lanka</strong></p>
+            </div>
+        </div>
+        <div style="margin-top: 3rem;">
+            <a href="#home" class="cta-button">Start Your Journey</a>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 1rem; color: #F5E8C7; background: rgba(92, 64, 51, 0.8);">
+        <p>© 2025 Ancient Villa - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function plusSlides(n) {
+            slideIndex += n;
+            showSlides();
+        }
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("slide");
+            if (slideIndex >= slides.length) { slideIndex = 0 }
+            if (slideIndex < 0) { slideIndex = slides.length - 1 }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.transform = `translateX(-${slideIndex * 100}%)`;
+            }
+            slideIndex = (slideIndex + 1) % slides.length; // Auto-increment for next slide
+            setTimeout(showSlides, 1000); // Auto-transition every 5 seconds
+        }
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href === '#home') {
+                    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                } else {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+
+        document.querySelectorAll('.features-grid .feature-card, .attractions-grid .attraction-card, .villa-gallery .gallery-item').forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.2}s`;
+        });
+
+        document.querySelectorAll('.attraction-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        const heroBackgrounds = [
+            'images/IsurumuniyaLovers.jpg',
+            'images/Abhayagiri.jpg',
+            'images/Aukana.jpg',
+            'images/EthPokuna.jpg',
+            'images/Haththikuchchi.jpg',
+            'images/Isurumuniya.jpg',
+            'images/Jetavanaramaya.jpg',
+            'images/KottamPokuna.jpg',
+            'images/Lankarama.jpg',
+            'images/RuwanweliMahaSeya.jpg',
+            'images/SamadhiStatue.jpg',
+            'images/SriMahaBodiya.jpg',
+            'images/Thuparamaya.jpg',
+            'images/TissaWewa.jpg',
+            'images/Mihinthale.jpg',
+            'images/Statue.jpg',
+            'images/Lovamahapaya.jpg',
+            'images/fixedBackground.jpeg',
+            'images/heroBackgroundMain.jpg'
+        ];
+
+        let currentBgIndex = 0;
+        setInterval(() => {
+            currentBgIndex = (currentBgIndex + 1) % heroBackgrounds.length;
+            document.querySelector('.hero').style.backgroundImage = 
+                `linear-gradient(rgba(92, 64, 51, 0.6), rgba(92, 64, 51, 0.6)), url('${heroBackgrounds[currentBgIndex]}')`;
+        }, 2000);
+
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        function createMobileMenu() {
+            const nav = document.querySelector('nav');
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.createElement('div');
+            hamburger.className = 'hamburger';
+            hamburger.innerHTML = '☰';
+            hamburger.style.display = 'none';
+            hamburger.style.fontSize = '1.5rem';
+            hamburger.style.color = '#D4A017'; 
+            hamburger.style.cursor = 'pointer';
+            
+            nav.querySelector('.nav-container').appendChild(hamburger);
+            
+            function checkMobile() {
+                if (window.innerWidth <= 768) {
+                    hamburger.style.display = 'block';
+                    navLinks.style.display = 'none';
+                } else {
+                    hamburger.style.display = 'none';
+                    navLinks.style.display = 'flex';
+                }
+            }
+            
+            hamburger.addEventListener('click', () => {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'rgba(92, 64, 51, 0.98)'; 
+                navLinks.style.padding = '1rem';
+            });
+            
+            window.addEventListener('resize', checkMobile);
+            checkMobile();
+        }
+        
+        createMobileMenu();
+    </script>
+</body>
+</html>
